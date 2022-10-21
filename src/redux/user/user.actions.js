@@ -1,5 +1,6 @@
 import { userActionTypes } from './user.types';
 import { apiBR } from '../../services/api';
+import { getMatches } from '../match/match.actions';
 
 export const setUser = user => {
   return {
@@ -22,6 +23,7 @@ export const getUser = userName => {
       .then(response => {
         dispatch(setUser(response.data))
         dispatch(getUserLeague(response.data.id))
+        dispatch(getMatches(response.data.puuid))
       })
       .catch(function (error) {
         if (error.response.status)

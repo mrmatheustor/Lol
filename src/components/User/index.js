@@ -56,6 +56,9 @@ const User = props => {
             <TabPanel value={value} index={value} userLeague={props.userLeague[value]} >
               <div>
                 {props.userLeague[value].tier}
+                {/* {props.matches ? props.matches.map(match => {
+                  console.log(match.info)
+                }) : null } */}
               </div>
             </TabPanel>
           </div>

@@ -1,0 +1,5 @@
+export const matchActionTypes = {
+  SET_CURRENT_MATCH: 'SET_CURRENT_MATCH',
+  SET_MATCHES: 'SET_MATCHES',
+  SET_MATCHES_ID: 'SET_MATCHES_ID'
+};

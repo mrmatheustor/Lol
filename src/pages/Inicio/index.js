@@ -1,28 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import { apiBR, apiAmericas } from '../../services/api'
+import React, { useEffect, useRef, useState } from 'react'
+import { connect } from 'react-redux'
+import { getUser, setUser } from '../../redux/user/user.actions'
+import User from '../../components/User/index'
+import { TextField } from '@mui/material'
 
-const Inicio = () => {
-  const [user, setUser] = useState()
+const Inicio = props => {
+  const [search, setSearch] = useState("")
+  const [name, setName] = useState("")
 
   useEffect(() => {
-    try{
-      apiBR.get('/lol/summoner/v4/summoners/by-name/Coloca%20Um%20Pagode')
-      .then(response => setUser(response.data))
-      .catch(function (error) {
-
-        console.log(error)
-      });
-    } catch(e) {
-      console.log(e)
-    }
-    console.log(user)
   }, [])
+
 
   return (
     <div>
-      <button onClick={() => console.log(user)}>Teste</button>
+      <TextField id="standard-basic" label="Standard" variant="standard" value={search}
+        onChange={(val) => {
+          setSearch(val.target.value)
+          setName(val.target.value.replace(/ /g, "%20"))
+        }} />
+      <button onClick={() => props.getUser(String(name))}>Procurar Invocador</button>
+      <button onClick={() => console.log(String(name))}>Props</button>
+      <User user={props.user} />
     </div>
   )
 }
 
-export default Inicio
+const mapStateToProps = state => {
+  const { users } = state;
+  const { user } = users
+
+  return { user };
+};
+
+const mapDispatchToProps = dispatch => ({
+  getUser: () => dispatch(getUser()),
+  setUser: user => dispatch(setUser(user)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Inicio);

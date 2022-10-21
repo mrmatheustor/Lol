@@ -1,5 +1,5 @@
 import { userActionTypes } from './user.types';
-import {apiBR} from '../../services/api';
+import { apiBR } from '../../services/api';
 
 export const setUser = user => {
   return {
@@ -8,20 +8,32 @@ export const setUser = user => {
   }
 }
 
-export const getUser = userName => {
-  console.log(userName)
-  return dispatch => {
-      apiBR
-        .get(`/lol/summoner/v4/summoners/by-name/${userName}`)
-        .then(response => dispatch(setUser(response.data)))
-        .catch(function (error) {
-            console.log(error)
-          });
-      }
+export const setUserLeague = userLeague => {
+  return {
+    type: userActionTypes.SET_CURRENT_USER_LEAGUE,
+    payload: userLeague
+  }
 }
 
-// let nextTodoId = 0
-// export const getUser = (content) => ({
-//   type: userActionTypes.SET_CURRENT_USER,
-//   payload: content
-// })
+export const getUser = userName => {
+  return dispatch => {
+    apiBR
+      .get(`/lol/summoner/v4/summoners/by-name/${userName}`)
+      .then(response => {
+        dispatch(setUser(response.data))
+        dispatch(getUserLeague(response.data.id))
+      })
+      .catch(function (error) {
+        if (error.response.status)
+          alert('Nome de invocador não existe')
+      });
+  }
+}
+
+const getUserLeague = summonerId => {
+  return dispatch => {
+    apiBR
+      .get(`/lol/league/v4/entries/by-summoner/${summonerId}`)
+      .then(res => dispatch(setUserLeague(res.data)))
+  }
+}

@@ -19,9 +19,9 @@ const Inicio = props => {
           setSearch(val.target.value)
           setName(val.target.value.replace(/ /g, "%20"))
         }} />
-      <button onClick={() => props.getUser(String(name))}>Procurar Invocador</button>
-      <button onClick={() => console.log(String(name))}>Props</button>
-      <User user={props.user} />
+      <button onClick={() => props.getUser(name)}>Procurar Invocador</button>
+      <button onClick={() => console.log(props)}>Props</button>
+      <User user={props.user} userLeague={props.userLeague} />
     </div>
   )
 }
@@ -29,12 +29,13 @@ const Inicio = props => {
 const mapStateToProps = state => {
   const { users } = state;
   const { user } = users
+  const { userLeague } = users
 
-  return { user };
+  return { user, userLeague };
 };
 
 const mapDispatchToProps = dispatch => ({
-  getUser: () => dispatch(getUser()),
+  getUser: userName => dispatch(getUser(userName)),
   setUser: user => dispatch(setUser(user)),
 });
 

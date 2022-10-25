@@ -38,13 +38,11 @@ export const getMatches = (puuid) => {
 }
 
 export const getMatch = matchId => {
-
   return dispatch => {
     matchId.map(match => {
       apiAmericas
         .get(`/lol/match/v5/matches/${match}`)
-        .then(response => dispatch(setMatches(response.data)))
+        .then(response => dispatch(setMatches([response.data])))
     })
-
   }
 }

@@ -37,8 +37,9 @@ export const getUser = userName => {
       .catch(function (error) {
         if (error.response.status){
           alert('Nome de invocador não existe')
-          setLoading(false)
         }
+        dispatch(setLoading(false))
+        console.log(error)
       });
   }
 }

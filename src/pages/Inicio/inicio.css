@@ -23,12 +23,6 @@
 
 .page-info {
   display: flex;
-  align-content: flex-end;
+  flex: 1;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.css-1vn4y0d-MuiFormLabel-root-MuiInputLabel-root {
-  color: 'green',
 }

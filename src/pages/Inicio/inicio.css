@@ -1,7 +1,7 @@
 .container {
   flex: 1 1;
   width: 100%;
-  background-color: black;
+  background-color: #1C1C1F;
   height: 100%;
   display: flex;
   color: white;
@@ -13,8 +13,13 @@
 }
 
 .search-bar {
-  
+  background-color: #31313C;
+  /* color: white; */
 }
+
+/* .search-bar:hover {
+  background-color: #fff;
+} */
 
 .page-info {
   display: flex;
@@ -22,4 +27,8 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
+}
+
+.css-1vn4y0d-MuiFormLabel-root-MuiInputLabel-root {
+  color: 'green',
 }

@@ -13,18 +13,27 @@ import Header from '../../components/Header'
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#555',
+      main: '#31313C',
     },
     secondary: {
       main: '#11cb5f',
     },
     custom: {
-      light: '#ffa726',
-      main: '#f57c00',
-      dark: '#ef6c00',
-      contrastText: 'rgba(0, 0, 0, 0.87)',
-    }
+      light: '#5a5a63',
+      main: '#31313C',
+      dark: '#22222a',
+      contrastText: '#ffffff',
+    },
+    textfield: {
+      main: '#fff',
+      contrastText: '#ffffff',
+    },
   },
+  components: {
+    MuiTextFieldLabel: {
+      color: '#cf0000',
+    }
+  }
 })
 
 const Inicio = props => {
@@ -44,7 +53,7 @@ const Inicio = props => {
       <ThemeProvider theme={theme}>
         <Header />
         <div className='page-info'>
-          <TextField margin='dense' color='custom' className="search-bar" id="standard-basic"
+          <TextField margin='dense' color='textfield' className="search-bar" id="standard-basic"
             label="Procurar Invocador" variant="filled" value={search}
             onChange={(val) => {
               setSearch(val.target.value)

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Tabs, Tab, Box, Typography } from '@mui/material'
 
+import './user.css'
+
 const User = props => {
   const [value, setValue] = useState(0)
 
@@ -25,7 +27,7 @@ const User = props => {
   }
 
   return (
-    <div>
+    <div className='tabs'>
       {props.user && props.userLeague ?
         <div>
           <div>

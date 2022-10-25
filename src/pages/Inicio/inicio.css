@@ -1,0 +1,25 @@
+.container {
+  flex: 1 1;
+  width: 100%;
+  background-color: black;
+  height: 100%;
+  display: flex;
+  color: white;
+  flex-direction: column;
+}
+
+.btn {
+  background-color: aqua;
+}
+
+.search-bar {
+  
+}
+
+.page-info {
+  display: flex;
+  align-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}

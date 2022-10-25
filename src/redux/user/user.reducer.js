@@ -2,7 +2,8 @@ import { userActionTypes } from './user.types';
 
 const INITIAL_STATE = {
   user: null,
-  userLeague: null
+  userLeague: null,
+  loading: false
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -17,6 +18,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
         return {
           ...state,
           userLeague: action.payload
+        }
+
+      case userActionTypes.SET_LOADING:
+        return {
+          ...state,
+          loading: action.payload
         }
 
       default:

@@ -16,6 +16,14 @@ export const setUserLeague = userLeague => {
   }
 }
 
+export const setLoading = loading => {
+  return {
+    type: userActionTypes.SET_LOADING,
+    payload: loading
+  }
+}
+
+
 export const getUser = userName => {
   return dispatch => {
     apiBR
@@ -24,10 +32,13 @@ export const getUser = userName => {
         dispatch(setUser(response.data))
         dispatch(getUserLeague(response.data.id))
         dispatch(getMatches(response.data.puuid))
+        dispatch(setLoading(false))
       })
       .catch(function (error) {
-        if (error.response.status)
+        if (error.response.status){
           alert('Nome de invocador não existe')
+          setLoading(false)
+        }
       });
   }
 }

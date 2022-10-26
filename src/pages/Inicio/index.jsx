@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { connect } from 'react-redux'
 import { getUser, setLoading, setUser } from '../../redux/user/user.actions'
 import User from '../../components/User/index'
-import { Button, TextField } from '@mui/material'
+import { Box, Button, TextField } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import { getMatch, getMatches } from '../../redux/match/match.actions'
 import { Search } from '@mui/icons-material'
@@ -23,21 +23,23 @@ const Inicio = props => {
   }
 
   return (
-    <div className='container'>
-        <Header />
-        <div className='page-info'>
-          <TextField sx={{margin: '10px'}} margin='dense' color='textfield' className="search-bar" id="standard-basic"
-            label="Procurar Invocador" variant="filled" value={search}
-            onChange={(val) => {
-              setSearch(val.target.value)
-              setName(val.target.value.replace(/ /g, "%20"))
-            }} />
-          <LoadingButton color='custom' loading={props.loading} startIcon={<Search />} className="btn"
-            variant='contained' onClick={handleGetUser}>Procurar Invocador</LoadingButton>
-            <Button onClick={() => console.log(props)} variant='contained'>Props</Button>
+    <Box className='container'>
+      <Header />
+      <Box className='page-info'>
+        <TextField sx={{ margin: '10px' }} margin='dense' color='textfield' className="search-bar" id="standard-basic"
+          label="Procurar Invocador" variant="filled" value={search}
+          onChange={(val) => {
+            setSearch(val.target.value)
+            setName(val.target.value.replace(/ /g, "%20"))
+          }} />
+        <LoadingButton color='custom' loading={props.loading} startIcon={<Search />} className="btn"
+          variant='contained' onClick={handleGetUser}>Procurar Invocador</LoadingButton>
+        <Button onClick={() => console.log(props)} variant='contained'>Props</Button>
+        <Box className="content">
           <User loading={props.setLoading} user={props.user} userLeague={props.userLeague} matches={props.summonerMatches} getMatch={props.getMatch} />
-        </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   )
 }
 

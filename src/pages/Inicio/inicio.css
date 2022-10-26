@@ -25,4 +25,9 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  background-color: #1c1c1f;
+}
+
+.page-info .content {
+  margin: 0 auto;
 }

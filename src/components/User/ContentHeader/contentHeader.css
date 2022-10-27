@@ -1,0 +1,27 @@
+.content-header-background {
+  background-color: #31313c;
+  border-radius: 8px;
+  padding: 0 8px;
+}
+
+.content-header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 1080px;
+  margin: 0 auto;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.header-profile-info {
+  padding: 45px 0px 25px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.profile-icon {
+  position: relative;
+}

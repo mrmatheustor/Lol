@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Box } from '@mui/material'
+import './contentHeader.css'
 
 const ContentHeader = (props) => {
   return (

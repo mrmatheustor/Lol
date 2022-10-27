@@ -36,7 +36,8 @@ const Inicio = props => {
           variant='contained' onClick={handleGetUser}>Procurar Invocador</LoadingButton>
         <Button onClick={() => console.log(props)} variant='contained'>Props</Button>
         <Box className="content">
-          <User loading={props.setLoading} user={props.user} userLeague={props.userLeague} matches={props.summonerMatches} getMatch={props.getMatch} />
+          <User loading={props.setLoading} user={props.user} userLeague={props.userLeague} 
+          matches={props.summonerMatches} getMatch={props.getMatch} matchesId={props.summonerMatchesId} />
         </Box>
       </Box>
     </Box>

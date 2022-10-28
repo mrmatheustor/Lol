@@ -71,6 +71,10 @@ li {
   white-space: nowrap;
 }
 
+.participants ul:nth-of-type(2) {
+  text-overflow: ellipsis; 
+  overflow: hidden;
+}
 .participants .name {
   display: inline-block;
   max-width: 60px;

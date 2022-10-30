@@ -9,13 +9,16 @@ import { Search } from '@mui/icons-material'
 
 import './inicio.css'
 import Header from '../../components/Header'
+import { apiAmericas } from '../../services/api'
 
 const Inicio = props => {
   const [search, setSearch] = useState("")
   const [name, setName] = useState("")
 
   useEffect(() => {
+   
   }, [])
+
 
   const handleGetUser = () => {
     props.getUser(name)

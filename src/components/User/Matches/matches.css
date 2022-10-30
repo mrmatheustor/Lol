@@ -72,9 +72,10 @@ li {
 }
 
 .participants ul:nth-of-type(2) {
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
   overflow: hidden;
 }
+
 .participants .name {
   display: inline-block;
   max-width: 60px;
@@ -169,7 +170,7 @@ li {
   border-radius: 50%;
   color: #FFF;
   background: #202D37;
-  font-family: "Roboto",sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .info div:nth-of-type(2) {
@@ -182,4 +183,106 @@ li {
   -ms-flex-align: center;
   align-items: center;
   margin-top: 8px;
+}
+
+.info div:nth-of-type(1) .kda {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  position: relative;
+  width: 107px;
+  padding-right: 12px;
+  margin-right: 8px;
+  margin-left: 12px;
+}
+
+.info div:nth-of-type(1) .kda .k-d-a {
+  line-height: 22px;
+  font-size: 15px;
+  color: #9AA4AF;
+  color: var(--gray400);
+  font-family: "Roboto", sans-serif;
+}
+
+.info div:nth-of-type(1) .kda .k-d-a span {
+  font-weight: bold;
+  color: #202D37;
+  color: var(--gray900);
+}
+
+.info div:nth-of-type(1) .kda .k-d-a .d {
+  color: #D31A45;
+  color: var(--red600);
+}
+
+.game {
+  width: 108px;
+  margin-left: 12px;
+  color: #758592;
+  color: var(--gray500);
+  line-height: 16px;
+}
+
+.win .game .type {
+  font-weight: bold;
+  color: #4171D6;
+  color: var(--main600);
+}
+
+.lose .game .type {
+  font-weight: bold;
+  color: #D31A45;
+  color: var(--red600);
+}
+
+.result {
+  font-weight: bold;
+}
+
+.css-1azqhka .info div:nth-of-type(2) {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.info div:nth-of-type(2) .items {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.info div:nth-of-type(2) .items ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.info div:nth-of-type(2) .items ul li:nth-of-type(1) {
+  margin-left: 0;
+}
+
+
+.items img {
+  width: 22px;
+  height: 22px;
+  margin-left: 2px;
+  background-color: #B3CDFF;
+  background-color: var(--main300);
+  border-radius: 4px;
 }

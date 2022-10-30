@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tabs, Tab, Box, Typography, createTheme, ThemeProvider, Button } from '@mui/material'
 import { TabPanel } from "@mui/lab"
 
@@ -45,21 +45,19 @@ const User = props => {
     );
   }
 
-  const getMatch = matchId => {
-    return (
-      props.matchesId.map(match =>
+  useEffect(() => {
+      props.matchesId.map(match =>{
+        console.log(match)
         apiAmericas
           .get(`/lol/match/v5/matches/${match}`)
-          .then(response => setMatches(response.data))
-      )
-    )
-  }
+          .then(response => setMatches(matches => [...matches, response.data]))
+      })
+  }, [props.matchesId])
 
   return (
     <Box className='tabs'>
       <ThemeProvider theme={userTheme}>
-        <button onClick={getMatch}>Pegar ID</button>
-        <button onClick={() => console.log(props.matches)}>Mostrar ID</button>
+        <button onClick={() => console.log(matches)}>Mostrar ID</button>
         {props.user && props.userLeague ?
           <Box>
             <ContentHeader user={props.user} />
@@ -67,7 +65,7 @@ const User = props => {
               <Box className="profile-infos">
                 {props.userLeague.map(userLeague => {
                   return (
-                    <Box className="profile-league">
+                    <Box className="profile-league" key={userLeague.id}>
                       <Box className="header">
                         <span>
                           {`${userLeague.queueType === "RANKED_SOLO_5x5" ? 'Ranqueada Solo'
@@ -147,12 +145,12 @@ const User = props => {
                               </Box>
                             )
                           })}
-                          
+
                         </Box>
                         : null}
                 </TabPanels>
                 <Box className="matches">
-                  <Matches matchesId={props.matchesId} matches={props.matches} user={props.user} value={value}/>
+                  <Matches matchesId={props.matchesId} matches={matches} user={props.user} value={value} />
                 </Box>
               </Box>
             </Box>

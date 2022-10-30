@@ -17,8 +17,8 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = React.useState(false);
+  const [anchorElUser, setAnchorElUser] = React.useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -28,11 +28,11 @@ function Header() {
   };
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+    setAnchorElNav(false);
   };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+    setAnchorElUser(false);
   };
 
   return (

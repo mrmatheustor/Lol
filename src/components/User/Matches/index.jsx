@@ -24,8 +24,6 @@ const Matches = props => {
 
   return (
     <div>
-      {props.value === 2
-        ?
         <Box>
           {props.matches.map(match => (
             <li className="current-match">
@@ -185,7 +183,6 @@ const Matches = props => {
             </li>
           ))}
         </Box>
-        : null}
     </div>
   )
 }

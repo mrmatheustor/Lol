@@ -32,8 +32,11 @@ export const getMatches = (puuid, type, start = 0, count = 20, queue) => {
         dispatch(getMatch(response.data))
       })
       .catch(function (error) {
-        if (error.response.status)
+        if (error.response.status === 429){
+          alert('Muitas chamadas!')
+        } else {
           alert('Não existem partidas!')
+        }
       });
   }
 }

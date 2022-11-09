@@ -19,7 +19,7 @@ const userTheme = createTheme({
 })
 
 const User = props => {
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(2)
   const [matches, setMatches] = useState([])
   const [gameModes, setGameModes] = useState([])
 
@@ -56,7 +56,7 @@ const User = props => {
 
   useEffect(() => {
     getMatch()
-  }, [props.matchesId])
+  }, [])
 
   return (
     <Box className='tabs'>
@@ -110,7 +110,7 @@ const User = props => {
                   </ul>
                 </Box>
                 <TabPanels value={value} index={value} className="match-overall" >
-                  {value === 2 ?
+                  {value === 2 ? // All
                     <Box >
                       <Box >
                         Recent Played Games {props.matchesId.length}

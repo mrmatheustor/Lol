@@ -45,13 +45,17 @@ const User = props => {
     );
   }
 
+  const getMatch = () => {
+    props.matchesId.map(match =>{
+      console.log(match)
+      apiAmericas
+        .get(`/lol/match/v5/matches/${match}`)
+        .then(response => setMatches(matches => [...matches, response.data]))
+    })
+  }
+
   useEffect(() => {
-      props.matchesId.map(match =>{
-        console.log(match)
-        apiAmericas
-          .get(`/lol/match/v5/matches/${match}`)
-          .then(response => setMatches(matches => [...matches, response.data]))
-      })
+    getMatch()
   }, [props.matchesId])
 
   return (
@@ -150,7 +154,7 @@ const User = props => {
                         : null}
                 </TabPanels>
                 <Box className="matches">
-                  <Matches matchesId={props.matchesId} matches={matches} user={props.user} value={value} />
+                  <Matches matchesId={props.matchesId} matches={matches} getMatch={getMatch} user={props.user} value={value} />
                 </Box>
               </Box>
             </Box>

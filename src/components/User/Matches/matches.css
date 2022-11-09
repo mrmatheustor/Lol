@@ -247,7 +247,7 @@ li {
   font-weight: bold;
 }
 
-.css-1azqhka .info div:nth-of-type(2) {
+.info div:nth-of-type(2) {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -277,6 +277,21 @@ li {
   margin-left: 0;
 }
 
+.info div:nth-of-type(2) .items ul li .loses {
+  width: 22px;
+  height: 22px;
+  margin-left: 2px;
+  background-color: var(--red300);
+  border-radius: 4px;
+}
+
+.info div:nth-of-type(2) .items ul li .wins {
+  width: 22px;
+  height: 22px;
+  margin-left: 2px;
+  background-color: var(--main300);
+  border-radius: 4px;
+}
 
 .items img {
   width: 22px;

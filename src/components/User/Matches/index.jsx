@@ -92,33 +92,39 @@ const Matches = props => {
                           ?
                           <ul>
                             <li>
-                              <Box style={{ position: 'relative' }}>
-                                <img src={`${process.env.PUBLIC_URL}/assets/12.20.1/img/item/${participant.item0}.png`} alt="" />
+                              <Box style={{ position: 'relative' }} >
+                                {participant.item0 === 0 ? <Box className={participant.win === true ? 'wins' : 'loses'}></Box>
+                                  : <img src={`${process.env.PUBLIC_URL}/assets/12.20.1/img/item/${participant.item0}.png`} alt="" />}
                               </Box>
                             </li>
                             <li>
                               <Box style={{ position: 'relative' }}>
-                                <img src={`${process.env.PUBLIC_URL}/assets/12.20.1/img/item/${participant.item1}.png`} alt="" />
+                                {participant.item1 === 0 ? <Box className={participant.win === true ? 'wins' : 'loses'}></Box>
+                                  : <img src={`${process.env.PUBLIC_URL}/assets/12.20.1/img/item/${participant.item1}.png`} alt="" />}
                               </Box>
                             </li>
                             <li>
                               <Box style={{ position: 'relative' }}>
-                                <img src={`${process.env.PUBLIC_URL}/assets/12.20.1/img/item/${participant.item2}.png`} alt="" />
+                                {participant.item2 === 0 ? <Box className={participant.win === true ? 'wins' : 'loses'}></Box>
+                                  : <img src={`${process.env.PUBLIC_URL}/assets/12.20.1/img/item/${participant.item2}.png`} alt="" />}
                               </Box>
                             </li>
                             <li>
                               <Box style={{ position: 'relative' }}>
-                                <img src={`${process.env.PUBLIC_URL}/assets/12.20.1/img/item/${participant.item3}.png`} alt="" />
+                                {participant.item3 === 0 ? <Box className={participant.win === true ? 'wins' : 'loses'}></Box>
+                                  : <img src={`${process.env.PUBLIC_URL}/assets/12.20.1/img/item/${participant.item3}.png`} alt="" />}
                               </Box>
                             </li>
                             <li>
                               <Box style={{ position: 'relative' }}>
-                                <img src={`${process.env.PUBLIC_URL}/assets/12.20.1/img/item/${participant.item4}.png`} alt="" />
+                                {participant.item4 === 0 ? <Box className={participant.win === true ? 'wins' : 'loses'}></Box>
+                                  : <img src={`${process.env.PUBLIC_URL}/assets/12.20.1/img/item/${participant.item4}.png`} alt="" />}
                               </Box>
                             </li>
                             <li>
                               <Box style={{ position: 'relative' }}>
-                                <img src={`${process.env.PUBLIC_URL}/assets/12.20.1/img/item/${participant.item5}.png`} alt="" />
+                                {participant.item5 === 0 ? <Box className={participant.win === true ? 'wins' : 'loses'}></Box>
+                                  : <img src={`${process.env.PUBLIC_URL}/assets/12.20.1/img/item/${participant.item5}.png`} alt="" />}
                               </Box>
                             </li>
                             <li>

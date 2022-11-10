@@ -33,12 +33,11 @@ const Matches = props => {
   useEffect(() => {
     setVal(val => [...val, props.value])
     console.log(queue)
-    test()
+    // test()
   }, [props.value])
 
   useEffect(() => {
     // test()
-    setVal(val => [...val, props.value])
   }, [])
 
   return (

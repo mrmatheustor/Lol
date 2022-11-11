@@ -146,6 +146,7 @@ li {
   border-radius: 50%;
   width: 48px !important;
   height: 48px !important;
+  margin-top: 10px;
 }
 
 .info div:nth-of-type(1) .champion .icon .champion-level {

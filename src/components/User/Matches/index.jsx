@@ -6,10 +6,6 @@ import { apiAmericas } from '../../../services/api'
 import './matches.css'
 
 const Matches = props => {
-  const [val, setVal] = useState([])
-  const type = ['', 'ranked', 'normal', 'tourney', 'tutorial']
-
-  const queue = require('../../../data/queues.json')
 
   const diff_minutes = (dt2, dt1) => {
     let dateFormat = new Date(dt1)
@@ -24,36 +20,9 @@ const Matches = props => {
 
   }
 
-  const test = async () => {
-    await props.getMatches(props.user.puuid, props.value === 2 ? type[0] :
-      props.value === 1 ? type[1] :
-        props.value === 0 ? type[1] : null
-      , 0, 2
-    )
-    // await props.getMatch()
-
-    await props.matchesId.map(match =>{
-      console.log(match)
-      apiAmericas
-        .get(`/lol/match/v5/matches/${match}`)
-        .then(response => props.setMatches(matches => [...matches, response.data]))
-    })
-  }
-
-  useEffect(() => {
-    setVal(val => [...val, props.value])
-    // props.setMatches([])
-    // test()
-  }, [props.value])
-
-  useEffect(() => {
-  }, [])
-
   return (
     <div>
       <Box>
-        <button onClick={() => console.log(props.matchesId)}>Mostrar ID</button>
-        
         {props.matches.map(match => (
           <li className="current-match">
             <Box className={match.info.participants.map(participant =>

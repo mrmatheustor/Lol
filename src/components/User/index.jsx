@@ -24,6 +24,7 @@ const User = props => {
   const [value, setValue] = useState(2)
   const [matches, setMatches] = useState([])
   const [gameModes, setGameModes] = useState([])
+  const [matchesId, setMatchesId] = useState([])
 
   const type = ['', 'ranked', 'normal', 'tourney', 'tutorial']
 
@@ -49,59 +50,46 @@ const User = props => {
     );
   }
 
-  // const getMatch = () => {
-  //   console.log(props.matchesId)
-  //   setMatches([])
-  //   props.matchesId.map(match =>{
-  //     apiAmericas
-  //       .get(`/lol/match/v5/matches/${match}`)
-  //       .then(response => setMatches(matches => [...matches, response.data]))
-  //   })
-  // }
   const getMatches = (puuid, type, start = 0, count = 2, queue) => {
-    console.log(type)
-      apiAmericas
-        .get(`/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}${type !== undefined ? `&type=${type}` : ''}${queue !== undefined ? `&queue=${queue}` : ''}`)
-        .then(response => {
-          setMatchesId(response.data)
-          getMatch(response.data)
-        })
-        .catch(function (error) {
-          if (error.response.status === 429){
-            alert('Muitas chamadas!')
-          } else {
-            alert('Não existem partidas!')
-          }
-        });
+    apiAmericas
+      .get(`/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}${type !== undefined ? `&type=${type}` : ''}${queue !== undefined ? `&queue=${queue}` : ''}`)
+      .then(response => {
+        setMatchesId(response.data)
+        getMatch(response.data)
+      })
+      .catch(function (error) {
+        if (error.response.status === 429) {
+          alert('Muitas chamadas!')
+        } else {
+          alert('Não existem partidas!')
+        }
+      });
   }
 
-
-  const test = async () => {
-    props.getMatches(props.user.puuid, value === 2 ? type[0] :
-      value === 1 ? type[1] :
-        value === 0 ? type[1] : null
-      , 0, 2
-    )
-    // await props.getMatch()
-    console.log(props.matchesId)
-    props.matchesId.map(match =>{
-      console.log(match)
+  const getMatch = matchId => {
+    setMatches([])
+    matchId.map(match => {
       apiAmericas
         .get(`/lol/match/v5/matches/${match}`)
-        .then(response => {setMatches(matches => [...matches, response.data]) 
-          console.log(response.data)})
+        .then(response => {
+          setMatches(matches => [...matches, response.data])
+        })
     })
   }
 
+
   useEffect(() => {
-    setMatches([])
-    // getMatch()
-    test()
+    if (props.user !== null && matches.length <= 2)
+      getMatches(props.user.puuid === null ? '' : props.user.puuid, value === 2 ? type[0] :
+        value === 1 ? type[1] :
+          value === 0 ? type[1] : null
+        , 0, 2)
   }, [value])
 
   return (
     <Box className='tabs'>
       <ThemeProvider theme={userTheme}>
+        <Button variant='contained'>Oi</Button>
         {props.user && props.userLeague ?
           <Box>
             <ContentHeader user={props.user} />

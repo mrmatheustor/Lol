@@ -29,6 +29,7 @@ export const getUser = (userName, type, start = 0, count = 20, queue) => {
     apiBR
       .get(`/lol/summoner/v4/summoners/by-name/${userName}`)
       .then(response => {
+        console.log(response.data.puuid)
         dispatch(setUser(response.data))
         dispatch(getUserLeague(response.data.id))
         dispatch(getMatches(response.data.puuid))

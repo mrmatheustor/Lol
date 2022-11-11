@@ -22,7 +22,7 @@ export const setMatches = (matches) => {
   }
 }
 
-export const getMatches = (puuid, type, start = 0, count = 20, queue) => {
+export const getMatches = (puuid, type, start = 0, count = 2, queue) => {
   console.log(type)
   return dispatch => {
     apiAmericas

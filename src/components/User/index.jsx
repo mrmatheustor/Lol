@@ -6,6 +6,8 @@ import './user.css'
 import ContentHeader from './ContentHeader'
 import { apiAmericas } from '../../services/api'
 import Matches from './Matches'
+import { getMatches } from '../../redux/match/match.actions'
+import { connect } from 'react-redux'
 
 const userTheme = createTheme({
   palette: {
@@ -22,6 +24,8 @@ const User = props => {
   const [value, setValue] = useState(2)
   const [matches, setMatches] = useState([])
   const [gameModes, setGameModes] = useState([])
+
+  const type = ['', 'ranked', 'normal', 'tourney', 'tutorial']
 
   const customData = require('../../data/gameModes.json')
 
@@ -45,23 +49,59 @@ const User = props => {
     );
   }
 
-  const getMatch = () => {
+  // const getMatch = () => {
+  //   console.log(props.matchesId)
+  //   setMatches([])
+  //   props.matchesId.map(match =>{
+  //     apiAmericas
+  //       .get(`/lol/match/v5/matches/${match}`)
+  //       .then(response => setMatches(matches => [...matches, response.data]))
+  //   })
+  // }
+  const getMatches = (puuid, type, start = 0, count = 2, queue) => {
+    console.log(type)
+      apiAmericas
+        .get(`/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}${type !== undefined ? `&type=${type}` : ''}${queue !== undefined ? `&queue=${queue}` : ''}`)
+        .then(response => {
+          setMatchesId(response.data)
+          getMatch(response.data)
+        })
+        .catch(function (error) {
+          if (error.response.status === 429){
+            alert('Muitas chamadas!')
+          } else {
+            alert('Não existem partidas!')
+          }
+        });
+  }
+
+
+  const test = async () => {
+    props.getMatches(props.user.puuid, value === 2 ? type[0] :
+      value === 1 ? type[1] :
+        value === 0 ? type[1] : null
+      , 0, 2
+    )
+    // await props.getMatch()
+    console.log(props.matchesId)
     props.matchesId.map(match =>{
       console.log(match)
       apiAmericas
         .get(`/lol/match/v5/matches/${match}`)
-        .then(response => setMatches(matches => [...matches, response.data]))
+        .then(response => {setMatches(matches => [...matches, response.data]) 
+          console.log(response.data)})
     })
   }
 
   useEffect(() => {
-    getMatch()
-  }, [])
+    setMatches([])
+    // getMatch()
+    test()
+  }, [value])
 
   return (
     <Box className='tabs'>
       <ThemeProvider theme={userTheme}>
-        <button onClick={() => console.log(matches)}>Mostrar ID</button>
         {props.user && props.userLeague ?
           <Box>
             <ContentHeader user={props.user} />
@@ -154,7 +194,7 @@ const User = props => {
                         : null}
                 </TabPanels>
                 <Box className="matches">
-                  <Matches matchesId={props.matchesId} matches={matches} getMatch={getMatch} user={props.user} value={value} />
+                  <Matches matchesId={props.matchesId} matches={matches} user={props.user} value={value} setMatches={setMatches} />
                 </Box>
               </Box>
             </Box>
@@ -165,4 +205,16 @@ const User = props => {
   )
 }
 
-export default User
+const mapStateToProps = state => {
+  const { users, matches } = state;
+  const { user, userLeague, loading } = users
+  const { summonerMatches } = matches
+
+  return { user, userLeague, loading, summonerMatches };
+};
+
+const mapDispatchToProps = dispatch => ({
+  getMatches: (puuid, type, start, count, queue) => dispatch(getMatches(puuid, type, start, count, queue)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(User);

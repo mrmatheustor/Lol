@@ -52,9 +52,7 @@ const mapStateToProps = state => {
   const { user, userLeague, loading } = users
   const { summonerMatches } = matches
   const { summonerMatchesId } = matches
-  const { match } = matches
-
-  return { user, userLeague, summonerMatches, match, summonerMatchesId, loading };
+  return { user, userLeague, summonerMatches, summonerMatchesId, loading };
 };
 
 const mapDispatchToProps = dispatch => ({

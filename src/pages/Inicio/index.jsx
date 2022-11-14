@@ -57,8 +57,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   getUser: userName => dispatch(getUser(userName)),
-  setUser: user => dispatch(setUser(user)),
-  getMatches: puuid => dispatch(getMatches(puuid)),
   getMatch: matchId => dispatch(getMatch(matchId)),
   setLoading: loading => dispatch(setLoading(loading)),
 });

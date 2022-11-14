@@ -23,7 +23,6 @@ export const setMatches = (matches) => {
 }
 
 export const getMatches = (puuid, type, start = 0, count = 20, queue) => {
-  console.log(type)
   return dispatch => {
     apiAmericas
       .get(`/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}${type !== undefined ? `&type=${type}` : ''}${queue !== undefined ? `&queue=${queue}` : ''}`)

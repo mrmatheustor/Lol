@@ -26,9 +26,9 @@ const User = props => {
   const [gameModes, setGameModes] = useState([])
   const [matchesId, setMatchesId] = useState([])
 
-  const type = ['', 'ranked', 'normal', 'tourney', 'tutorial']
+  const types = ['', 'ranked', 'normal', 'tourney', 'tutorial']
 
-  const customData = require('../../data/gameModes.json')
+  const queues = require('../../data/queues.json')
 
   function TabPanels(props) {
     const { children, value, index, ...other } = props;
@@ -67,7 +67,6 @@ const User = props => {
   }
 
   const getMatch = matchId => {
-    setMatches([])
     matchId.map(match => {
       apiAmericas
         .get(`/lol/match/v5/matches/${match}`)
@@ -79,17 +78,23 @@ const User = props => {
 
 
   useEffect(() => {
-    if (props.user !== null && matches.length <= 2)
-      getMatches(props.user.puuid === null ? '' : props.user.puuid, value === 2 ? type[0] :
-        value === 1 ? type[1] :
-          value === 0 ? type[1] : null
-        , 0, 2)
-  }, [value])
+    setMatches([])
+    if (props.user !== null) {
+      getMatches(props.user.puuid === null ? '' : props.user.puuid, value === 2 ? types[0] :
+        value === 1 ? types[1] :
+          value === 0 ? types[1] : ""
+        , 0, 2, queues.filter(queue => value === 1 ? queue.map === "Summoner's Rift" && queue.notes === null &&
+        queue.description.includes("5v5 Ranked Solo")  : null
+       ))
+    }
+  }, [value, props.summonerMatchesId])
 
   return (
     <Box className='tabs'>
       <ThemeProvider theme={userTheme}>
-        <Button variant='contained'>Oi</Button>
+        <Button variant='contained' onClick={() => console.log(queues.map(queue => queue.map === "Summoner's Rift" && queue.notes === null &&
+         queue.description.includes("5v5 Ranked Solo") 
+        ))} >Oi</Button>
         {props.user && props.userLeague ?
           <Box>
             <ContentHeader user={props.user} />
@@ -182,7 +187,8 @@ const User = props => {
                         : null}
                 </TabPanels>
                 <Box className="matches">
-                  <Matches matchesId={props.matchesId} matches={matches} user={props.user} value={value} setMatches={setMatches} />
+                  <Matches matchesId={props.matchesId} matches={matches} user={props.user} value={value}
+                    getMatches={getMatches} currentValue={value} type={types} />
                 </Box>
               </Box>
             </Box>
@@ -196,13 +202,13 @@ const User = props => {
 const mapStateToProps = state => {
   const { users, matches } = state;
   const { user, userLeague, loading } = users
-  const { summonerMatches } = matches
+  const { summonerMatches, summonerMatchesId } = matches
 
-  return { user, userLeague, loading, summonerMatches };
+  return { user, userLeague, loading, summonerMatches, summonerMatchesId };
 };
 
 const mapDispatchToProps = dispatch => ({
-  getMatches: (puuid, type, start, count, queue) => dispatch(getMatches(puuid, type, start, count, queue)),
+  // getMatches: (puuid, type, start, count, queue) => dispatch(getMatches(puuid, type, start, count, queue)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);

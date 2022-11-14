@@ -24,7 +24,7 @@ export const setLoading = loading => {
 }
 
 
-export const getUser = (userName, type, start = 0, count = 20, queue) => {
+export const getUser = (userName, type, start = 0, count = 2, queue) => {
   return dispatch => {
     apiBR
       .get(`/lol/summoner/v4/summoners/by-name/${userName}`)
@@ -32,11 +32,11 @@ export const getUser = (userName, type, start = 0, count = 20, queue) => {
         console.log(response.data.puuid)
         dispatch(setUser(response.data))
         dispatch(getUserLeague(response.data.id))
-        dispatch(getMatches(response.data.puuid))
+        dispatch(getMatches(response.data.puuid, "", start, count))
         dispatch(setLoading(false))
       })
       .catch(function (error) {
-        if (error.response.status){
+        if (error.response.status) {
           alert('Nome de invocador não existe')
         }
         dispatch(setLoading(false))

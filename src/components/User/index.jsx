@@ -25,6 +25,7 @@ const User = props => {
   const [matches, setMatches] = useState([])
   const [gameModes, setGameModes] = useState([])
   const [matchesId, setMatchesId] = useState([])
+  const [queueId, setQueueId] = useState(0)
 
   const types = ['', 'ranked', 'normal', 'tourney', 'tutorial']
 
@@ -50,9 +51,9 @@ const User = props => {
     );
   }
 
-  const getMatches = (puuid, type, start = 0, count = 2, queue) => {
+  const getMatches = (puuid, type, start = 0, count = 2, queue = 0) => {
     apiAmericas
-      .get(`/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}${type !== undefined ? `&type=${type}` : ''}${queue !== undefined ? `&queue=${queue}` : ''}`)
+      .get(`/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}${type !== undefined ? `&type=${type}` : ''}${queue !== 0 ? `&queue=${queue}` : ''}`)
       .then(response => {
         setMatchesId(response.data)
         getMatch(response.data)
@@ -80,21 +81,36 @@ const User = props => {
   useEffect(() => {
     setMatches([])
     if (props.user !== null) {
-      getMatches(props.user.puuid === null ? '' : props.user.puuid, value === 2 ? types[0] :
-        value === 1 ? types[1] :
-          value === 0 ? types[1] : ""
-        , 0, 2, queues.filter(queue => value === 1 ? queue.map === "Summoner's Rift" && queue.notes === null &&
-        queue.description.includes("5v5 Ranked Solo")  : null
-       ))
+      queues.filter(queue => {
+        if (queue.map === "Summoner's Rift" && queue.notes === null && queue.description.includes(`5v5 ${value === 0 ? "Ranked Solo"
+          : value === 1 ? "Ranked Flex" : 0}`)) {
+          getMatches(props.user.puuid === null ? '' : props.user.puuid, value === 2 ? types[0] :
+            value === 1 ? types[1] :
+              value === 0 ? types[1] : ""
+            , 0, 2, queue.queueId)
+            console.log(queue.queueId)
+          // setQueueId(queue.queueId)
+        }
+      })
+
+      // getMatches(props.user.puuid === null ? '' : props.user.puuid, value === 2 ? types[0] :
+      //   value === 1 ? types[1] :
+      //     value === 0 ? types[1] : ""
+      //   , 0, 2, queueId)
+
     }
+    console.log(value)
   }, [value, props.summonerMatchesId])
 
   return (
     <Box className='tabs'>
       <ThemeProvider theme={userTheme}>
-        <Button variant='contained' onClick={() => console.log(queues.map(queue => queue.map === "Summoner's Rift" && queue.notes === null &&
-         queue.description.includes("5v5 Ranked Solo") 
-        ))} >Oi</Button>
+        <Button variant='contained' onClick={() => queues.filter(queue => {
+          if (queue.map === "Summoner's Rift" && queue.notes === null && queue.description.includes(`5v5 ${value === 0 ? "Ranked Solo"
+            : value === 1 ? "Ranked Flex" : setQueueId(0)}`)) {
+            console.log(queue)
+          }
+        })} >Oi</Button>
         {props.user && props.userLeague ?
           <Box>
             <ContentHeader user={props.user} />

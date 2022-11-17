@@ -30,7 +30,7 @@ const Matches = props => {
             props.currentValue === 1 ? props.type[1] :
               props.currentValue === 0 ? props.type[1] : null
             , props.matches.length, 1)}
-          hasMore={props.matches.length < 4 ? true : false} 
+          hasMore={props.matches.length < 4 ? true : false}
           // Aqui estou fazendo teste com até 4 partidas no máximo, alterar também user.actions.js e trocar o valor do useEffect de User
           loader={<h4>Loading...</h4>}
           style={{
@@ -45,7 +45,8 @@ const Matches = props => {
               ).join('')}>
                 <Box className="game">
                   <Box className="type">
-                    {match.info.gameMode}
+                    {props.queueId === 0 ? match.info.gameMode : match.info.gameMode === "CLASSIC" &&
+                      props.queueId === 420 ? "Ranqueada Solo" : "Ranqueada Flex"}
                   </Box>
                   <Box className="time-stamp">
                     {`${diff_minutes(new Date(), new Date(match.info.gameCreation))}`}

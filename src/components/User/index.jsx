@@ -83,13 +83,15 @@ const User = props => {
     if (props.user !== null) {
       queues.filter(queue => {
         if (queue.map === "Summoner's Rift" && queue.notes === null && queue.description.includes(`5v5 ${value === 0 ? "Ranked Solo"
-          : value === 1 ? "Ranked Flex" : 0}`)) {
+          : value === 1 ? "Ranked Flex" : ''}`)) {
           getMatches(props.user.puuid === null ? '' : props.user.puuid, value === 2 ? types[0] :
             value === 1 ? types[1] :
               value === 0 ? types[1] : ""
-            , 0, 2, queue.queueId)
-            console.log(queue.queueId)
-          // setQueueId(queue.queueId)
+            , 0, 2, value === 2 ? 0 : queue.queueId)
+          if (value !== 2)
+            setQueueId(queue.queueId)
+          else 
+            setQueueId(0)
         }
       })
 
@@ -107,7 +109,7 @@ const User = props => {
       <ThemeProvider theme={userTheme}>
         <Button variant='contained' onClick={() => queues.filter(queue => {
           if (queue.map === "Summoner's Rift" && queue.notes === null && queue.description.includes(`5v5 ${value === 0 ? "Ranked Solo"
-            : value === 1 ? "Ranked Flex" : setQueueId(0)}`)) {
+            : value === 1 ? "Ranked Flex" : 0}`)) {
             console.log(queue)
           }
         })} >Oi</Button>
@@ -176,7 +178,7 @@ const User = props => {
                                   <Box >
                                     {props.matchesId.length} jogos recentes
                                   </Box>
-                                  : `Sem dados`
+                                  : null
                               }
                             </Box>
                           )
@@ -193,7 +195,7 @@ const User = props => {
                                     <Box >
                                       {props.matchesId.length} jogos recentes
                                     </Box>
-                                    : `Sem dados`
+                                    : null
                                 }
                               </Box>
                             )
@@ -204,7 +206,7 @@ const User = props => {
                 </TabPanels>
                 <Box className="matches">
                   <Matches matchesId={props.matchesId} matches={matches} user={props.user} value={value}
-                    getMatches={getMatches} currentValue={value} type={types} />
+                    getMatches={getMatches} currentValue={value} type={types} queueId={queueId} />
                 </Box>
               </Box>
             </Box>

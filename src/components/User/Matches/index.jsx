@@ -29,7 +29,7 @@ const Matches = props => {
           next={() => props.getMatches(props.user.puuid === null ? '' : props.user.puuid, props.currentValue === 2 ? props.type[0] :
             props.currentValue === 1 ? props.type[1] :
               props.currentValue === 0 ? props.type[1] : null
-            , props.matches.length, 1)}
+            , props.matches.length, 1, props.queueId)}
           hasMore={props.matches.length < 4 ? true : false}
           // Aqui estou fazendo teste com até 4 partidas no máximo, alterar também user.actions.js e trocar o valor do useEffect de User
           loader={<h4>Loading...</h4>}

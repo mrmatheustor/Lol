@@ -51,9 +51,9 @@ const User = props => {
     );
   }
 
-  const getMatches = (puuid, type, start = 0, count = 2, queue = 0) => {
+  const getMatches = (puuid, type = '', start = 0, count = 2, queue = 0) => {
     apiAmericas
-      .get(`/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}${type !== undefined ? `&type=${type}` : ''}${queue !== 0 ? `&queue=${queue}` : ''}`)
+      .get(`/lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}${type !== '' ? `&type=${type}` : ''}${queue !== 0 ? `&queue=${queue}` : ''}`)
       .then(response => {
         setMatchesId(response.data)
         getMatch(response.data)
@@ -77,29 +77,27 @@ const User = props => {
     })
   }
 
+  const matchByQueue = () => {
+    queues.filter(queue => {
+      if (queue.map === "Summoner's Rift" && queue.notes === null && queue.description.includes(value === 0 ? "5v5 Ranked Solo"
+        : value === 1 ? "5v5 Ranked Flex" : '5v5 Ranked Flex')) {
+        console.log(queue)
+        getMatches(props.user.puuid === null ? '' : props.user.puuid, value === 2 ? types[0] :
+          value === 1 ? types[1] :
+            value === 0 ? types[1] : ""
+          , 0, 2, value === 2 ? 0 : queue.queueId)
+        if (value !== 2)
+          setQueueId(queue.queueId)
+        else
+          setQueueId(0)
+      }
+    })
+  }
 
   useEffect(() => {
     setMatches([])
     if (props.user !== null) {
-      queues.filter(queue => {
-        if (queue.map === "Summoner's Rift" && queue.notes === null && queue.description.includes(`5v5 ${value === 0 ? "Ranked Solo"
-          : value === 1 ? "Ranked Flex" : ''}`)) {
-          getMatches(props.user.puuid === null ? '' : props.user.puuid, value === 2 ? types[0] :
-            value === 1 ? types[1] :
-              value === 0 ? types[1] : ""
-            , 0, 2, value === 2 ? 0 : queue.queueId)
-          if (value !== 2)
-            setQueueId(queue.queueId)
-          else 
-            setQueueId(0)
-        }
-      })
-
-      // getMatches(props.user.puuid === null ? '' : props.user.puuid, value === 2 ? types[0] :
-      //   value === 1 ? types[1] :
-      //     value === 0 ? types[1] : ""
-      //   , 0, 2, queueId)
-
+      matchByQueue()
     }
     console.log(value)
   }, [value, props.summonerMatchesId])
@@ -107,12 +105,7 @@ const User = props => {
   return (
     <Box className='tabs'>
       <ThemeProvider theme={userTheme}>
-        <Button variant='contained' onClick={() => queues.filter(queue => {
-          if (queue.map === "Summoner's Rift" && queue.notes === null && queue.description.includes(`5v5 ${value === 0 ? "Ranked Solo"
-            : value === 1 ? "Ranked Flex" : 0}`)) {
-            console.log(queue)
-          }
-        })} >Oi</Button>
+        <Button variant='contained' onClick={() => console.log(matches)} >Oi</Button>
         {props.user && props.userLeague ?
           <Box>
             <ContentHeader user={props.user} />
@@ -167,24 +160,12 @@ const User = props => {
                         Recent Played Games {props.matchesId.length}
                       </Box>
                     </Box>
-                    : value === 1 ? //Flex
-                      <Box>
-                        {props.userLeague.map(league => {
-                          return (
-                            <Box>
-                              {
-                                league.queueType === "RANKED_FLEX_SR"
-                                  ?
-                                  <Box >
-                                    {props.matchesId.length} jogos recentes
-                                  </Box>
-                                  : null
-                              }
-                            </Box>
-                          )
-                        })}
+                    : value === 1 ? //Flex 440
+                      <Box><Box >
+                        Recent Played Games {props.matchesId.length}
                       </Box>
-                      : value === 0 ? //Solo
+                      </Box>
+                      : value === 0 ? //Solo 420
                         <Box>
                           {props.userLeague.map(league => {
                             return (

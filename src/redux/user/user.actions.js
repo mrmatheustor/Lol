@@ -24,7 +24,7 @@ export const setLoading = loading => {
 }
 
 
-export const getUser = (userName, type, start = 0, count = 2, queue) => {
+export const getUser = (userName, type, start = 0, count = 20, queue) => {
   return dispatch => {
     apiBR
       .get(`/lol/summoner/v4/summoners/by-name/${userName}`)
